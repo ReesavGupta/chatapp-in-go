@@ -34,7 +34,6 @@ func NewHub() *Hub {
 func (hub *Hub) Run() {
 	for {
 		select {
-
 		case client := <-hub.register:
 			hub.clients[client] = true
 
