@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/ReesavGupta/chatapp-in-go/src/ws"
 )
 
 type JoinRequestBody struct { // needs to be in caps to be exported
@@ -31,4 +33,10 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Printf("this is the name:%v, and room :%v", joinReq.Name, joinReq.Room)
+}
+
+func HandleWsConnection(hub *ws.Hub) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ws.ServeWs(hub, w, r)
+	}
 }
